@@ -1,0 +1,42 @@
+name: slack-emoji-fetcher
+help: Download custom emojis from any Slack workspace.
+version: 1.0.0
+
+flags:
+  - long: --workspace-id
+    required: true
+    help: The unique identifier for your Slack workspace.
+    arg: id
+
+  - long: --token
+    required: true
+    help: The unique token associated with the API requests for the target Slack workspace.
+    arg: token
+
+  - long: --cookie
+    required: true
+    help: The value of the "d" cookie header used to authenticate with the target Slack workspace.
+    arg: cookie
+
+  - long: --count
+    default: "10"
+    validate: integer
+    help: The number of results to page through at a time.
+    arg: count
+
+  - long: --destination
+    default: "."
+    validate: dir_exists
+    help: The directory in which emojis will be saved.
+    arg: destination
+
+  - long: --dry-run
+    help: Queries the emoji endpoint, but does not save the results to disk.
+
+  - long: --debug
+    help: Use to \`set -x\` for Bash while also activating high verbosity for curl commands. Useful for troubleshooting requests.
+
+examples:
+- slack-emoji-fetcher --workspace-id=XXX --token=XXX --cookie=XXX
+- slack-emoji-fetcher --workspace-id=XXX --token=XXX --cookie=XXX --debug --dry-run
+- slack-emoji-fetcher --workspace-id=XXX --token=XXX --cookie=XXX --count=100 --destination="${HOME}/emojis" --dry-run
