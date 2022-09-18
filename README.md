@@ -10,7 +10,7 @@ I am lazy and this utility makes the process incredibly simple.
 
 ## Requirements
 
-Before you begin using `slack-emoji-fetcher`, you will need the following installed on your machine:
+Before you begin using `slack-emoji-fetcher`, you will need the following:
 
 1. [jq](https://stedolan.github.io/jq/)
 2. Bash version 4, or higher.
