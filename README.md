@@ -2,6 +2,28 @@
 
 A small utility that allows you to manage all the custom emojis you've spent years collecting and sharing across your favourite Slack workspaces.
 
+- [Slack Emoji Toolkit](#slack-emoji-toolkit)
+    - [Why?](#why)
+  - [Requirements](#requirements)
+    - [Getting the Id](#getting-the-id)
+    - [Getting the Cookie](#getting-the-cookie)
+    - [Getting the Token](#getting-the-token)
+    - [Getting the URL](#getting-the-url)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Downloading Emojis](#downloading-emojis)
+      - [Examples:](#examples)
+      - [Additional Options](#additional-options)
+    - [Uploading Emojis](#uploading-emojis)
+      - [Examples](#examples-1)
+      - [Additional Options](#additional-options-1)
+    - [Deleting](#deleting)
+      - [Examples](#examples-2)
+      - [Additional Options](#additional-options-2)
+  - [Building & Contributing](#building--contributing)
+  - [Acknowledgements](#acknowledgements)
+  - [License](#license)
+
 ### Why?
 
 There is a non-zero number of times I've left a gig and wanted to take my emojis with me so I could share them with new coworkers. There is also a non-zero number of times I've been asked by _former_ coworkers to send them all our custom emojis for the same reason.
@@ -235,7 +257,65 @@ Ensure the you have values for the following flags and run the command as displa
 2. `--cookie`
 3. `--token`
 #### Examples
+Delete a single named emoji:
+```
+$ slack-emoji-toolkit delete                     \
+  --workspace-domain="${SLACK_WORKSPACE_DOMAIN}" \
+  --token="${SLACK_WORKSPACE_TOKEN}"             \
+  --cookie="${SLACK_WORKSPACE_COOKIE}"           \
+  --name=boop
 
+[???] delete the emoji named :boop: from the target workspace my-slack-url? [y/N]: y
+[INF] removing :boop: from workspace ... deleted!
+[INF] all done; exiting ...
+```
+Bulk delete _all_ custom emojis and skip all confirmation steps:
+```
+$ slack-emoji-toolkit delete                     \
+  --workspace-domain="${SLACK_WORKSPACE_DOMAIN}" \
+  --token="${SLACK_WORKSPACE_TOKEN}"             \
+  --cookie="${SLACK_WORKSPACE_COOKIE}"           \
+  --nuke-from-orbit
+
+[INF] fetching emojis from page 1 of 6... done!
+[INF] fetching emojis from page 2 of 6... done!
+[INF] fetching emojis from page 3 of 6... done!
+[INF] fetching emojis from page 4 of 6... done!
+[INF] fetching emojis from page 5 of 6... done!
+[INF] fetching emojis from page 6 of 6... done!
+[INF] finished paging through results; moving on ...
+[???] start deleting 59 emoji(s) from the target workspace my-slack-url? [y/N]: y
+[INF] deleting :boops: ... deleted!
+[INF] deleting :merp: ... deleted!
+[INF] deleting :derp: ... deleted!
+[INF] deleting :booyah: ... deleted!
+[INF] deleting :schmoop: ... deleted!
+... more log output ...
+[INF] all done; exiting ...
+```
+Delete emojis created by a specified set of users and matching various search terms:
+```
+$ slack-emoji-toolkit delete                     \
+  --workspace-domain="${SLACK_WORKSPACE_DOMAIN}" \
+  --token="${SLACK_WORKSPACE_TOKEN}"             \
+  --cookie="${SLACK_WORKSPACE_COOKIE}"           \
+  --user-id=XXXXX1                               \
+  --user-id=XXXXX2                               \
+  --query=stonks                                 \
+  --query=boop                                   \
+  --nuke-from-orbit
+
+[INF] fetching emojis from page 1 of 1... done!
+[INF] finished paging through results; moving on ...
+[???] start deleting 6 emoji(s) from the target workspace my-slack-url? [y/N]: y
+[INF] deleting :boops: ... deleted!
+[INF] deleting :boop: ... deleted!
+[INF] deleting :stonks-1: ... deleted!
+[INF] deleting :stonks-2: ... deleted!
+[INF] deleting :stonks-3: ... deleted!
+... more log output ...
+[INF] all done; exiting ...
+```
 #### Additional Options
 ```
 slack-emoji-toolkit delete - Delete individual, groups, or all emojis from the specified Slack workspace. This is a function that requires additional permissions.
