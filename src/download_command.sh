@@ -30,14 +30,14 @@ while true; do
   echo "${result}"  | jq -r '.results[] | select(.is_alias == null and (.value | type != "object")) | .value' | while read -r line; do 
     name=$(basename $(dirname "${line}"))
     path="${args[--destination]}/${name}.${line##*.}"
-    echo -n "$(green [INF]) saving $(bold :${name}:) to ${path}... "
+    echo -n "$(green [INF]) saving $(bold :${name}:) to $(bold ${path}) ..."
     [[ -n ${args[--dry-run]} ]] && {
-      echo 'skipping!'
+      echo ' skipping!'
       continue
     }
 
     curl ${curl_opts} -o  "${path}" "${line}"  
-    echo 'done!'
+    echo ' done!'
   done 
 
   marker=$(echo "${result}" | jq -r ".next_marker")
