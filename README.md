@@ -12,7 +12,7 @@ A small utility that allows you to manage all the custom emojis you've spent yea
   - [Installation](#installation)
   - [Usage](#usage)
     - [Downloading Emojis](#downloading-emojis)
-      - [Examples:](#examples)
+      - [Examples](#examples)
       - [Additional Options](#additional-options)
     - [Uploading Emojis](#uploading-emojis)
       - [Examples](#examples-1)
@@ -106,7 +106,7 @@ Ensure the you have values for the following flags and run the command as displa
 2. `--cookie`
 3. `--token`
 
-#### Examples:
+#### Examples
 Download all custom emojis to your present working directory:
 ```
 $ slack-emoji-toolkit download           \
