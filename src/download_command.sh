@@ -1,16 +1,8 @@
-set -eo pipefail
-
 curl_opts="-s"
-if [[ -n "${args[--debug]}" ]]; then 
+[[ -n "${args[--debug]}" ]] && {
   set -x
   curl_opts="-v ${curl_opts}"
-fi
-
-if ! command -v "jq" &> /dev/null; then
-  echo "$(red_bold [ERR]) jq could not be located. Install using the relevant command:"
-  echo "$(red_bold [ERR])   MacOS: $ brew update && brew install jq"
-  echo "$(red_bold [ERR])   Linux: $ apt-get install jq"
-fi
+}
 
 payload=$(
   jq -nc \
@@ -29,20 +21,20 @@ while true; do
       --data-raw "${payload}" 
   )
 
-  if [[ $(echo "${result}" | jq -r ".ok") == false ]]; then
+  [[ $(echo "${result}" | jq -r ".ok") == false ]] && {
     error=$(echo "${result}" | jq -r ".error")
     echo "$(red_bold [ERR]) request could not be completed: ${error}"
     exit 1
-  fi
+  }
 
   echo "${result}"  | jq -r '.results[] | select(.is_alias == null and (.value | type != "object")) | .value' | while read -r line; do 
     name=$(basename $(dirname "${line}"))
     path="${args[--destination]}/${name}.${line##*.}"
-    echo -n "$(green [INF]) saving :${name}: to ${path}..."
-    if [[ -n ${args[--dry-run]} ]]; then 
+    echo -n "$(green [INF]) saving $(bold :${name}:) to ${path}... "
+    [[ -n ${args[--dry-run]} ]] && {
       echo 'skipping!'
       continue
-    fi
+    }
 
     curl ${curl_opts} -o  "${path}" "${line}"  
     echo 'done!'

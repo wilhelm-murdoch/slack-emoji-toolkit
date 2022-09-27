@@ -1,6 +1,8 @@
-## Code here runs inside the initialize() function
-## Use it for anything that you need to run before any other function, like
-## setting environment vairables:
-## CONFIG_FILE=settings.ini
-##
-## Feel free to empty (but not delete) this file.
+set -eo pipefail
+
+if ! command -v "jq" &> /dev/null; then
+  echo "$(red_bold [ERR]) jq could not be located. Install using the relevant command:"
+  echo "$(red_bold [ERR])   MacOS: $ brew update && brew install jq"
+  echo "$(red_bold [ERR])   Linux: $ apt-get install jq"
+  exit 1
+fi
