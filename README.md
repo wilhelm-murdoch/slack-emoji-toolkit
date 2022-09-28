@@ -1,7 +1,5 @@
 # Slack Emoji Toolkit
 
-A small utility that allows you to manage all the custom emojis you've spent years collecting and sharing across your favourite Slack workspaces.
-
 - [Slack Emoji Toolkit](#slack-emoji-toolkit)
     - [Why?](#why)
   - [Requirements](#requirements)
@@ -23,6 +21,8 @@ A small utility that allows you to manage all the custom emojis you've spent yea
   - [Building & Contributing](#building--contributing)
   - [Acknowledgements](#acknowledgements)
   - [License](#license)
+
+A small utility that allows you to manage all the custom emojis you've spent years collecting and sharing across your favourite Slack workspaces.
 
 ### Why?
 
