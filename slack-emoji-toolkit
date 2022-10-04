@@ -612,15 +612,15 @@ slack_emoji_toolkit_download_command() {
 
       name=$(basename $(dirname "${line}"))
       path="${args[--destination]}/${name}.${line##*.}"
-      echo -n "$(green [INF]) saving $(bold :${name}:) to ${path}... "
+      echo -n "$(green [INF]) saving $(bold :${name}:) to $(bold ${path}) ..."
       [[ -n ${args[--dry-run]} ]] && {
-        echo 'skipping!'
+        echo ' skipping!'
         continue
       }
 
       curl ${curl_opts} -o  "${path}" "${line}"
 
-      echo 'done!'
+      echo ' done!'
     done
 
     marker=$(echo "${result}" | jq -r ".next_marker")
