@@ -6,22 +6,26 @@ commands:
   - name: upload
     help: Bulk upload locally-stored emojis to the specified Slack workspace. This is a function that requires additional permissions.
     flags:
-      - long: --workspace-domain
+      - &workspace-domain
+        long: --workspace-domain
         required: true
         help: The unique subdomain associated with the target workspace.
         arg: domain
 
-      - long: --workspace-id
+      - &workspace-id
+        long: --workspace-id
         required: true
         help: The unique identifier for your Slack workspace.
         arg: id
 
-      - long: --token
+      - &token
+        long: --token
         required: true
         help: The unique token associated with the API requests for the target Slack workspace.
         arg: token
 
-      - long: --cookie
+      - &cookie
+        long: --cookie
         required: true
         help: The value of the "d" cookie header used to authenticate with the target Slack workspace.
         arg: cookie
@@ -40,29 +44,20 @@ commands:
         help: Add a suffix to the name of all uploaded emojis.
         arg: suffix
 
-      - long: --dry-run
+      - &dry-run
+        long: --dry-run
         help: Query, but make no destructive changes.
 
-      - long: --debug
+      - &debug
+        long: --debug
         help: Use to \`set -x\` for Bash while also activating high verbosity for curl commands. Useful for troubleshooting requests.
 
   - name: delete
     help: Delete individual, groups, or all emojis from the specified Slack workspace. This is a function that requires additional permissions.
     flags:
-      - long: --workspace-domain
-        required: true
-        help: The unique subdomain associated with the target workspace.
-        arg: domain
-
-      - long: --token
-        required: true
-        help: The unique token associated with the API requests for the target Slack workspace.
-        arg: token
-
-      - long: --cookie
-        required: true
-        help: The value of the "d" cookie header used to authenticate with the target Slack workspace.
-        arg: cookie
+      - *workspace-domain
+      - *token
+      - *cookie
 
       - long: --query
         help: Filter emojis that match the specified term. Cannot be used with --name.
@@ -85,7 +80,8 @@ commands:
           - --query
           - --user-id
 
-      - long: --count
+      - &count
+        long: --count
         default: "10"
         validate: integer
         help: The number of results to page through at a time.
@@ -96,35 +92,16 @@ commands:
         conflicts:
           - --name
 
-      - long: --dry-run
-        help: Query, but make no destructive changes.
-
-      - long: --debug
-        help: Use to \`set -x\` for Bash while also activating high verbosity for curl commands. Useful for troubleshooting requests.
+      - *dry-run
+      - *debug
 
   - name: download
     help: Download all custom emoji associated with the given workspace id.
     flags:
-      - long: --workspace-id
-        required: true
-        help: The unique identifier for your Slack workspace.
-        arg: id
-
-      - long: --token
-        required: true
-        help: The unique token associated with the API requests for the target Slack workspace.
-        arg: token
-
-      - long: --cookie
-        required: true
-        help: The value of the "d" cookie header used to authenticate with the target Slack workspace.
-        arg: cookie
-
-      - long: --count
-        default: "10"
-        validate: integer
-        help: The number of results to page through at a time.
-        arg: count
+      - *workspace-id
+      - *token
+      - *cookie
+      - *count
 
       - long: --destination
         default: "."
@@ -132,8 +109,6 @@ commands:
         help: The directory in which emojis will be saved.
         arg: destination
 
-      - long: --dry-run
-        help: Query, but make no destructive changes.
+      - *dry-run
+      - *debug
 
-      - long: --debug
-        help: Use to \`set -x\` for Bash while also activating high verbosity for curl commands. Useful for troubleshooting requests.
